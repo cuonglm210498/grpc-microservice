@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "vn.vss.grpc.proto";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/type.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+message UserRequest {
+  int64 id = 1;
+}
+
+message UserCreateRequest {
+  string userName = 1;
+  string password = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+  string fullName = 6;
+  google.protobuf.Timestamp dateOfBirth = 7;
+  string avatar = 8;
+}
+
+message UserUpdateRequest {
+  int64 id = 1;
+  string userName = 2;
+  string password = 3;
+  string email = 4;
+  string phone = 5;
+  string address = 6;
+  string fullName = 7;
+  google.protobuf.Timestamp dateOfBirth = 8;
+  string avatar = 9;
+}
+
+message UserResponse {
+  int64 id = 1;
+  string userName = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+  string fullName = 6;
+}
+
+message AllRequest {}
+
+message UserDeleteResponse {}
+
+message UserCreateResponse {}
+
+message UserUpdateResponse {}
+
+service UserService {
+  rpc getUser(UserRequest) returns (UserResponse) {};
+  rpc getAll(AllRequest) returns (stream UserResponse) {};
+  rpc createUser(UserCreateRequest) returns (UserCreateResponse) {};
+  rpc deleteUser(UserRequest) returns (UserDeleteResponse) {};
+  rpc updateUser(UserUpdateRequest) returns (UserUpdateResponse) {};
+}
