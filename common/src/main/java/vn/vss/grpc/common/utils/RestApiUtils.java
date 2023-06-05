@@ -56,29 +56,29 @@ public class RestApiUtils {
         }
     }
 
-//    public HttpHeaders makeHeader() {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//
-//        String token = headers.getFirst(AUTHORIZATION);
-//        headers.setBearerAuth(token);
-//
-//        return headers;
-//    }
-//
-//    public <T> T callRestApi(final String path, final HttpMethod method, Object request, Class<T> clazz) {
-//        try {
-//            var response = restTemplate.exchange(
-//                    path,
-//                    method,
-//                    new HttpEntity<>(objectMapper.writeValueAsString(request), this.makeHeader()),
-//                    clazz);
-//
-//            if (HttpStatus.OK == response.getStatusCode() || HttpStatus.CREATED == response.getStatusCode())
-//                return response.getBody();
-//            return null;
-//        } catch (Exception e) {
-//            throw new BusinessException(BusinessCodeResponse.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    public <T> T callRestApiWithToken(final String path, final HttpMethod method, Object request, Class<T> clazz) {
+        try {
+            var response = restTemplate.exchange(
+                    path,
+                    method,
+                    new HttpEntity<>(objectMapper.writeValueAsString(request), this.makeHeader()),
+                    clazz);
+
+            if (HttpStatus.OK == response.getStatusCode() || HttpStatus.CREATED == response.getStatusCode())
+                return response.getBody();
+            return null;
+        } catch (Exception e) {
+            throw new BusinessException(BusinessCodeResponse.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public HttpHeaders makeHeader() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String token = headers.getFirst(AUTHORIZATION);
+        headers.setBearerAuth(token);
+
+        return headers;
+    }
 }
