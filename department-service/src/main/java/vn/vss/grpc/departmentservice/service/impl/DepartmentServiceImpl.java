@@ -45,7 +45,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<User> getAllUser() {
-        BaseResponse response = restApiUtils.getApi(ApiConstant.UserService.GET_ALL_USER, HttpMethod.GET, BaseResponse.class);
+        BaseResponse response = restApiUtils.callRestApi(ApiConstant.UserService.GET_ALL_USER, HttpMethod.GET, BaseResponse.class);
         return objectMapper.convertValue(response.getData(), new TypeReference<>(){});
     }
 }
